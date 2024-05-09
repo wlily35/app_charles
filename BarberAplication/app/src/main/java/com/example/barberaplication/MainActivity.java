@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnLi;
     private Button btnEli;
 
+    private Button btnSalir;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBu = (Button)findViewById(R.id.btnBu);
         btnLi = (Button)findViewById(R.id.btnLi);
         btnEli = (Button)findViewById(R.id.btnEli);
+        btnSalir = (Button)findViewById(R.id.btnSalir);
 
         btnReg.setOnClickListener(this);
         btnBu.setOnClickListener(this);
         btnLi.setOnClickListener(this);
         btnEli.setOnClickListener(this);
+        btnSalir.setOnClickListener(this);
         SQLUtilities conexion = new SQLUtilities(this);
     }
 
@@ -50,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.btnEli) {
             Intent intent = new Intent(MainActivity.this, EliminarActivity.class);
             startActivity(intent);
+        }
+        if (v.getId() == R.id.btnSalir) {
+            finish();
+            System.exit(0);
         }
 
     }

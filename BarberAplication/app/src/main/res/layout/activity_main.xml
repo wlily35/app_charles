@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="480dp"
-        app:layout_constraintBottom_toTopOf="@+id/BRegreso"
+        app:layout_constraintBottom_toTopOf="@+id/btnSalir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,16 +92,17 @@
     app:layout_constraintTop_toBottomOf="@+id/btnBu" />
 
     <Button
-    android:id="@+id/BRegreso"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="160dp"
-    android:layout_marginBottom="36dp"
-    android:background="@drawable/rounded_button"
-    android:textColor="@android:color/white"
-    android:text="Salir"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
+        android:id="@+id/btnSalir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/rounded_button"
+        android:onClick="onClick"
+        android:text="Salir"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
