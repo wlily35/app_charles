@@ -85,7 +85,7 @@ public class ListarMateriales extends AppCompatActivity {
         listaInformacion = new ArrayList<String>();
 
         for (int i=0; i<listaMaterial.size(); i++){
-            listaInformacion.add("Nombre: " + listaMaterial.get(i).getNombre() + " | Cantidad: " + listaMaterial.get(i).getCantidad() + " | Tipo: " + listaMaterial.get(i).getTipo());
+            listaInformacion.add("Nombre: " + listaMaterial.get(i).getNombre() + "\n" + " | Cantidad: " + listaMaterial.get(i).getCantidad() + "\n" + " | Tipo: " + listaMaterial.get(i).getTipo());
         }
     }
 }
