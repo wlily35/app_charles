@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +22,7 @@ public class EliminarActivity extends AppCompatActivity {
     ArrayList<Material> listaMaterial = new ArrayList<Material>();
     Material material;
     SQLUtilities conexion;
+    private ImageView Regresar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +59,16 @@ public class EliminarActivity extends AppCompatActivity {
                     }
                 });
                 window.show();
-
                 return false;
             }
         });
+        Regresar = (ImageView)findViewById(R.id.Regreso);
+        Regresar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                onBackPressed();
+            }
+        });
+
     }
 }

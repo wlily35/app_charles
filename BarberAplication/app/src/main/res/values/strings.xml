@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProyectoAndroid</string>
+    <string name="app_name">BarberInventory</string>
     <string name="registrar_persona">Registrar Persona</string>
     <string name="salir">Salir</string>
     <string name="registro_de_personas">Registro de Personas</string>

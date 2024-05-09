@@ -19,6 +19,7 @@
         <activity android:name=".RegistrarMateriales"></activity>
         <activity android:name=".MostrarMateriales"></activity>
         <activity android:name=".ListarMateriales"></activity>
+        <activity android:name=".EliminarActivity"></activity>
     </application>
 
 </manifest>
