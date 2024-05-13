@@ -1,17 +1,19 @@
 package com.example.barberaplication;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 public class EliminarActivity extends AppCompatActivity {
 
     ListView listMateriales;
-    ArrayList<Material> listaMaterial = new ArrayList<Material>();
+    ArrayList<Material> listaMaterial = new ArrayList<>();
     SQLUtilities conexion;
     private ImageView Regresar;
 
@@ -40,34 +42,8 @@ public class EliminarActivity extends AppCompatActivity {
             } while (c.moveToNext());
         }
 
-        ArrayList<String> listaInformacion = new ArrayList<>();
-        for (Material material : listaMaterial) {
-            listaInformacion.add("Nombre: " + material.getNombre() + "\n" + " | Cantidad: " + material.getCantidad() + "\n" + " | Tipo: " + material.getTipo());
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaInformacion);
+        MaterialListAdapter adapter = new MaterialListAdapter(listaMaterial);
         listMateriales.setAdapter(adapter);
-
-        listMateriales.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder window = new AlertDialog.Builder(EliminarActivity.this);
-                window.setTitle("Eliminar");
-                window.setMessage("¿Está seguro?");
-                window.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String sql = "DELETE FROM Material WHERE id=" + listaMaterial.get(position).getId();
-                        db.execSQL(sql);
-                        Intent iThis = new Intent(EliminarActivity.this, EliminarActivity.class);
-                        startActivity(iThis);
-                        finish();
-                    }
-                });
-                window.show();
-                return false;
-            }
-        });
 
         Regresar = findViewById(R.id.Regreso);
         Regresar.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +52,73 @@ public class EliminarActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
     }
+
+    private class MaterialListAdapter extends ArrayAdapter<Material> {
+
+        public MaterialListAdapter(ArrayList<Material> materials) {
+            super(EliminarActivity.this, 0, materials);
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            }
+
+            final Material currentMaterial = getItem(position);
+
+            TextView textViewInfo = convertView.findViewById(R.id.textViewId);
+            textViewInfo.setText("\n" + "\n" + "\n" +" | ID: " + currentMaterial.getId() + "\n" +" | Nombre: " + currentMaterial.getNombre() + "\n" + " | Cantidad: " + currentMaterial.getCantidad() + "\n" + " | Tipo: " + currentMaterial.getTipo());
+
+            Button btnDecrease = convertView.findViewById(R.id.btnDecrease);
+            btnDecrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int cantidadActual = Integer.parseInt(currentMaterial.getCantidad());
+                    if (cantidadActual > 0) {
+                        cantidadActual--;
+                        currentMaterial.setCantidad(String.valueOf(cantidadActual));
+                        // Actualizamos la cantidad en la base de datos
+                        String sql = "UPDATE Material SET cantidad=" + cantidadActual + " WHERE id=" + currentMaterial.getId();
+                        SQLiteDatabase db = conexion.getWritableDatabase();
+                        db.execSQL(sql);
+                        // Notificamos al adaptador que los datos han cambiado
+                        notifyDataSetChanged();
+                    }
+                }
+            });
+
+            Button btnIncrease = convertView.findViewById(R.id.btnIncrease);
+            btnIncrease.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int cantidadActual = Integer.parseInt(currentMaterial.getCantidad());
+                    cantidadActual++;
+                    currentMaterial.setCantidad(String.valueOf(cantidadActual));
+                    // Actualizamos la cantidad en la base de datos
+                    String sql = "UPDATE Material SET cantidad=" + cantidadActual + " WHERE id=" + currentMaterial.getId();
+                    SQLiteDatabase db = conexion.getWritableDatabase();
+                    db.execSQL(sql);
+                    // Notificamos al adaptador que los datos han cambiado
+                    notifyDataSetChanged();
+                }
+            });
+
+            Button btnDelete = convertView.findViewById(R.id.btnDelete);
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Eliminar el elemento de la lista y de la base de datos
+                    SQLiteDatabase db = conexion.getWritableDatabase();
+                    db.delete("Material", "id=?", new String[]{currentMaterial.getId()});
+                    listaMaterial.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
+
+            return convertView;
+        }
+    }
+
 }

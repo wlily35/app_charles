@@ -21,5 +21,7 @@
     <string name="sistema_de_bodega">Sistema de Bodega</string>
     <string name="la_bodeguita">"La bodeguita"</string>
     <string name="eliminar_materiales">Editar Materiales</string>
-
+    <string name="decrease_button_description">Disminuir cantidad</string>
+    <string name="increase_button_description">Aumentar cantidad</string>
+    <string name="back_button_description">boton devolver</string>
 </resources>
