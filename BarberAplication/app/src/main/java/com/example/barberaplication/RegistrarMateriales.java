@@ -1,6 +1,7 @@
 package com.example.barberaplication;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -56,6 +57,15 @@ public class RegistrarMateriales extends AppCompatActivity implements View.OnCli
         String cantidad = edtCant.getText().toString();
         String tipo = spinner.getSelectedItem().toString();
 
+        // Verificar si el ID ya existe en la base de datos
+        Cursor cursor = db.rawQuery("SELECT * FROM Material WHERE Id=?", new String[]{id});
+        if(cursor.getCount() > 0) {
+            // El ID ya existe, mostrar mensaje de error y salir de la función
+            Toast.makeText(this, "El ID ya existe, por favor ingrese un ID diferente", Toast.LENGTH_SHORT).show();
+            cursor.close();
+            return;
+        }
+        cursor.close();
 
         if ( !id.isEmpty() && !nombre.isEmpty() && !cantidad.isEmpty() && !tipo.equals("Tipo") ){
             ContentValues registro = new ContentValues();

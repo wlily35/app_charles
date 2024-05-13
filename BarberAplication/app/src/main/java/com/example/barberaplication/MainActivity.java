@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btnReg;
     private Button btnBu;
-    private Button btnLi;
     private Button btnEli;
 
     private Button btnSalir;
@@ -26,13 +25,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnReg = (Button)findViewById(R.id.btnReg);
         btnBu = (Button)findViewById(R.id.btnBu);
-        btnLi = (Button)findViewById(R.id.btnLi);
+
         btnEli = (Button)findViewById(R.id.btnEli);
         btnSalir = (Button)findViewById(R.id.btnSalir);
 
         btnReg.setOnClickListener(this);
         btnBu.setOnClickListener(this);
-        btnLi.setOnClickListener(this);
+
         btnEli.setOnClickListener(this);
         btnSalir.setOnClickListener(this);
         SQLUtilities conexion = new SQLUtilities(this);
@@ -45,10 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v.getId() == R.id.btnBu) {
             Intent intent = new Intent(MainActivity.this, MostrarMateriales.class);
-            startActivity(intent);
-        }
-        if (v.getId() == R.id.btnLi) {
-            Intent intent = new Intent(MainActivity.this, ListarMateriales.class);
             startActivity(intent);
         }
         if (v.getId() == R.id.btnEli) {
@@ -82,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
 
         }else if(id == R.id.opListar){
-            Intent intent = new Intent( MainActivity.this, ListarMateriales.class);
+            Intent intent = new Intent( MainActivity.this, EliminarActivity.class);
             startActivity(intent);
 
         }else{

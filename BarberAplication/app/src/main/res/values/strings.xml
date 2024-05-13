@@ -8,7 +8,7 @@
     <string name="telefono">Telefono</string>
     <string name="registrar">Registrar Material</string>
     <string name="sexo">Sexo</string>
-    <string name="listar">Listar Materiales</string>
+    <string name="listar">Editar Materiales</string>
     <string name="lista_de_personas">Lista de Personas</string>
     <string name="registro_inventario">Registro Inventario</string>
     <string name="id">ID</string>
